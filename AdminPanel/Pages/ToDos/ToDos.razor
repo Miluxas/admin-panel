@@ -1,0 +1,63 @@
+﻿@page "/todos"
+@*@attribute [Authorize(Roles = "Admin")]*@
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+@inject DialogService DialogService
+@inject ContextMenuService ContextMenuService
+@inject TooltipService TooltipService
+@inject NotificationService NotificationService
+@using Microsoft.AspNetCore.SignalR.Client
+@inject Services.WebToDoService service
+@inject APIs.Services.ToDoService apiService
+@inject NavigationManager Navigation
+
+<PageTitle>ToDos</PageTitle>
+<RadzenStack>
+    <RadzenRow AlignItems="AlignItems.Center">
+        <RadzenColumn Size="12" SizeMD="6">
+            <RadzenText Text="ToDos" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
+        </RadzenColumn>
+    </RadzenRow>
+    <RadzenRow>
+        <RadzenColumn SizeMD=12>
+            <RadzenDataGrid @ref="grid0" ColumnWidth="200px" AllowFiltering="true" FilterMode="FilterMode.Advanced" AllowPaging="true" AllowSorting="true" ShowPagingSummary="true" PageSizeOptions=@(new int[]{5, 10, 20, 30})
+                            Data="@toDos" TItem="Data.ToDo">
+                <Columns>
+                    <RadzenDataGridColumn TItem="Data.ToDo" Property="Id" Title="Id">
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="Data.ToDo" Property="Title" Title="Title">
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="Data.ToDo" Property="Status" Title="Status">
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="Data.ToDo" Property="Effort" Title="Effort">
+                    </RadzenDataGridColumn>
+
+                </Columns>
+
+            </RadzenDataGrid>
+
+        </RadzenColumn>
+    </RadzenRow>
+</RadzenStack>
+@code {
+
+    protected IEnumerable<Data.ToDo> toDos;
+    private HubConnection? hubConnection;
+    protected RadzenDataGrid<Data.ToDo> grid0;
+    protected override async Task OnInitializedAsync()
+    {
+        toDos = await service.GetToDos();
+
+        hubConnection = new HubConnectionBuilder()
+                .WithUrl(Navigation.ToAbsoluteUri("/todohub"))
+                .Build();
+
+        await hubConnection.StartAsync();
+
+        hubConnection.On< Data.ToDo>("AddToDo", ( toDo) =>
+        {
+            InvokeAsync(grid0.Reload);
+        });
+
+    }
+}

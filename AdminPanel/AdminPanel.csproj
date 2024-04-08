@@ -10,6 +10,21 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
+    <None Remove="APIs\" />
+    <None Remove="APIs\Controllers\" />
+    <None Remove="APIs\Services\" />
+    <None Remove="APIs\Shared\" />
+    <None Remove="APIs\Helper\" />
+    <None Remove="APIs\Controllers\Auth\" />
+    <None Remove="APIs\Controllers\Auth\DTOs\" />
+    <None Remove="APIs\Shared\DTOs\" />
+    <None Remove="Services\" />
+    <None Remove="Pages\ToDos\" />
+    <None Remove="APIs\Controllers\ToDo\" />
+    <None Remove="APIs\Controllers\ToDo\DTOs\" />
+    <None Remove="Hubs\" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
   </ItemGroup>
 
@@ -17,8 +32,31 @@
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.15" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.15" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.17" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.17" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Radzen.Blazor" Version="4.29.2" />
+    <PackageReference Include="Radzen.Design" Version="0.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.17" />
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.17" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="APIs\" />
+    <Folder Include="APIs\Controllers\" />
+    <Folder Include="APIs\Services\" />
+    <Folder Include="APIs\Shared\" />
+    <Folder Include="APIs\Helper\" />
+    <Folder Include="APIs\Controllers\Auth\" />
+    <Folder Include="APIs\Controllers\Auth\DTOs\" />
+    <Folder Include="APIs\Shared\DTOs\" />
+    <Folder Include="Services\" />
+    <Folder Include="Pages\ToDos\" />
+    <Folder Include="APIs\Controllers\ToDo\" />
+    <Folder Include="APIs\Controllers\ToDo\DTOs\" />
+    <Folder Include="Hubs\" />
+  </ItemGroup>
 </Project>
